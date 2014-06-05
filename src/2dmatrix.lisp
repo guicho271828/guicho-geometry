@@ -1,7 +1,7 @@
 
 (in-package :guicho-geometry)
 (annot:enable-annot-syntax)
-(speed*)
+
 @export
 @doc "2-dimentional affine conversion matrix."
 (deftype 2dmatrix ()

@@ -1,7 +1,7 @@
 
 (in-package :guicho-geometry)
 (annot:enable-annot-syntax)
-(speed*)
+
 @export
 @export-accessors
 (defclass 2dobb (deep-copyable

@@ -2,7 +2,6 @@
 
 (in-package :guicho-geometry)
 (annot:enable-annot-syntax)
-(speed*)
 ;; 対角線上の二点をスロットに持つ
 
 @export

@@ -1,8 +1,6 @@
 (in-package :guicho-geometry)
 (annot:enable-annot-syntax)
 
-(speed*)
-
 ;; @export
 ;; (deftype range ()
 ;;   `(simple-array *desired-type* 2))

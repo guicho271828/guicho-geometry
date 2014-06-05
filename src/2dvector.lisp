@@ -1,5 +1,5 @@
 (in-package :guicho-geometry)
-(speed*)
+
 (annot:enable-annot-syntax)
 
 @export

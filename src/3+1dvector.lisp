@@ -50,6 +50,6 @@
 (defmethod print-object ((v 3+1dsegment) stream)
   (print-unreadable-object (v stream :type t)
     (with-slots (from to) v
-      (format stream "[~8f,~8f,~8f,~8f] [~8f,~8f,~8f,~8f]"
+      (format stream "[~a,~a,~a,~a] [~a,~a,~a,~a]"
               (x-of from) (y-of from) (z-of from) (t-of from)
               (x-of to) (y-of to) (z-of to) (t-of to)))))

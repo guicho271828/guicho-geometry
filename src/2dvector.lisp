@@ -5,12 +5,12 @@
 @export
 @export-slots
 (defclass 2dvector (deep-copyable)
-  ((x :type number :initarg :x)
-   (y :type number :initarg :y)))
+  ((x :type number :initarg :x :accessor x-of)
+   (y :type number :initarg :y :accessor y-of)))
 
 (defmethod print-object ((v 2dvector) stream)
   (print-unreadable-object (v stream :type t)
-    (format stream "[~4f,~4f]"
+    (format stream "[~A,~A]"
             (x-of v) (y-of v))))
 
 (defmethod reinitialize-instance :after ((v 2dvector) 
@@ -19,28 +19,7 @@
     (setf (x-of v) (x-of original)
           (y-of v) (y-of original))))
 
-(declaim (inline x-of (setf x-of)
-                 y-of (setf y-of)
-                 2dv))
-
-@export
-(defun x-of (v)
-  @type 2dvector v
-  (dslot-value v 'x))
-@export
-(defun y-of (v)
-  @type 2dvector v
-  (dslot-value v 'y))
-@export
-(defun (setf x-of) (x v)
-  @type number x
-  @type 2dvector v
-  (dsetf (slot-value v 'x) x))
-@export
-(defun (setf y-of) (y v)
-  @type number y
-  @type 2dvector v
-  (dsetf (slot-value v 'y) y))
+(declaim (inline 2dv))
 
 @export
 (defun 2dv (x y)
@@ -49,8 +28,8 @@
 
 @export
 (defun make-random-2dv (x0 y0 x1 y1)
-  (2dv (drandom-between x0 x1)
-       (drandom-between y0 y1)))
+  (2dv (random-between x0 x1)
+       (random-between y0 y1)))
 
 @export
 (defvar +2origin+ (2dv 0.0d0 0.0d0))

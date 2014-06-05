@@ -48,7 +48,7 @@ time."
   (with-memoising-slot (velocity movable)
     (with-slots (motion) movable
       (nscale-vector (sub motion (center-of movable))
-                     (d/ (dt movable))))))
+                     (/ (dt movable))))))
 
 (defmethod motion-velocity-of ((shape 2dshape))
   (2dv 0.0d0 0.0d0))
@@ -103,8 +103,8 @@ time."
       (if (< (dabs r) (dabs perp))
           nil
           (let* ((dvnorm (norm dv))
-                 (t-center  (+ time (d/ (dot dp dv1) dvnorm)))
-                 (t-width/2 (d/ (dsqrt (- (* r r) (* perp perp)))
+                 (t-center  (+ time (/ (dot dp dv1) dvnorm)))
+                 (t-width/2 (/ (dsqrt (- (* r r) (* perp perp)))
                                 dvnorm)))
             (values
              (region-product

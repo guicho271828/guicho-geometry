@@ -148,11 +148,11 @@ for 2dvector, it just returns the area of parallelogram
   (norm2-vector v1))
 
 (defmethod normalize ((v1 2dvector))
-  (scale-vector v1 (d/ 1.0d0 (norm v1))))
+  (scale-vector v1 (/ 1.0d0 (norm v1))))
 
 
 (defmethod resize ((v1 2dvector) (length double-float))
-  (scale-vector v1 (d/ length (norm v1))))
+  (scale-vector v1 (/ length (norm v1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; shape methods
@@ -214,13 +214,13 @@ for 2dvector, it just returns the area of parallelogram
 
 (defmethod slope ((v 2dvector))
   (with-slots (x y) v
-    (d/ y x)))
+    (/ y x)))
 
 (defmethod center-of ((v 2dvector)) v)
 
 
 (defmethod projection-of ((v1 2dvector) (v2 2dvector))
-  (scale-vector v2 (d/ (dot-vector v1 v2) (norm2-vector v2))))
+  (scale-vector v2 (/ (dot-vector v1 v2) (norm2-vector v2))))
 
 (defmethod radius ((v 2dvector))
   0.0d0)

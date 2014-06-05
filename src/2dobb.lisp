@@ -72,8 +72,8 @@
                    (dim dimension)) r
     (with-slots (x/2 y/2) obb
       (setf (center-of obb) c
-            x/2 (d/ (x-of dim) 2.0d0)
-            y/2 (d/ (y-of dim) 2.0d0)))))
+            x/2 (/ (x-of dim) 2.0d0)
+            y/2 (/ (y-of dim) 2.0d0)))))
 
 (defmethod rotate ((obb 2dobb) (rad double-float))
   (with-slots (angle) obb

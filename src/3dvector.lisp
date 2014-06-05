@@ -111,13 +111,13 @@
 
 
 (defmethod normalize ((v1 3dvector))
-  (dot v1 (d/ 1.0d0 (norm v1))))
+  (dot v1 (/ 1.0d0 (norm v1))))
 
 (defmethod resize ((v1 3dvector) (length float))
-  (dot v1 (d/ length (norm v1))))
+  (dot v1 (/ length (norm v1))))
 
 (defmethod nresize ((v1 3dvector) (length float))
-  (let ((n (d/ length (norm v1))))
+  (let ((n (/ length (norm v1))))
     (setf (x-of v1) (* (x-of v1) n)
           (y-of v1) (* (y-of v1) n)
           (z-of v1) (* (z-of v1) n))

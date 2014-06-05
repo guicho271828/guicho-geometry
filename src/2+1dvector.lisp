@@ -53,7 +53,7 @@
 @export
 (defun 2+1dv-velocity (2+1dv)
   (with-slots (x y time) 2+1dv
-    (2dv (d/ x time) (d/ y time))))
+    (2dv (/ x time) (/ y time))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; vector methods
@@ -153,7 +153,7 @@
   (scale-2+1dvector v1 c))
 
 (defmethod normalize ((v1 2+1dvector))
-  (scale-2+1dvector v1 (d/ 1.0d0 (norm v1))))
+  (scale-2+1dvector v1 (/ 1.0d0 (norm v1))))
 
 (defmethod translate ((v1 2+1dvector) (v2 2+1dvector))
   (add-2+1dvector v1 v2))

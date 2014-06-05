@@ -50,8 +50,8 @@
 @export
 (defun 2dv-coerce (x y)
   (make-instance '2dvector
-                 :x (desired x)
-                 :y (desired y)))
+                 :x x
+                 :y y))
 
 @export
 (defun make-random-2dv (x0 y0 x1 y1)

@@ -18,7 +18,7 @@
 @export
 (defun circle-coerce (center radius)
   @type 2dvector center
-  (new '2dcircle :center center :radius (desired radius)))
+  (new '2dcircle :center center :radius radius))
 
 (alias circle* circle-coerce)
 

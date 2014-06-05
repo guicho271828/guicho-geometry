@@ -1,6 +1,6 @@
 
 
-(in-package :lmates.geometry)
+(in-package :guicho-geometry)
 (annot:enable-annot-syntax)
 
 @export
@@ -10,7 +10,7 @@
 
 (defmethod direction ((line 3dline))
   (with-memoising-slot (direction line)
-	(call-next-method)))
+    (call-next-method)))
 
 ;; @inherited length :from infinity-shape
 ;; @inherited diameter :from infinity-shape

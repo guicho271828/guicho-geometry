@@ -1,18 +1,18 @@
 
 (declaim (optimize (debug 3)))
 (in-package :cl-user)
-(defpackage lmates.geometry
+(defpackage guicho-geometry
   (:use :cl
-		:annot.class
-		:annot.eval-when
-		:annot.doc
-		:annot.slot
-		:anaphora
-		:iterate
-		:alexandria
-		:lmates.utilities)
+        :annot.class
+        :annot.eval-when
+        :annot.doc
+        :annot.slot
+        :anaphora
+        :iterate
+        :alexandria
+        :guicho-utilities)
   (:shadow :rotate))
 
-(in-package :lmates.geometry)
+(in-package :guicho-geometry)
 (annot:enable-annot-syntax)
 

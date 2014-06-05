@@ -1,6 +1,6 @@
 
 
-(in-package :lmates.geometry)
+(in-package :guicho-geometry)
 (annot:enable-annot-syntax)
 
 

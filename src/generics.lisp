@@ -1,5 +1,5 @@
 
-(in-package :lmates.geometry)
+(in-package :guicho-geometry)
 (annot:enable-annot-syntax)
 
 ;; @doc "returns a function that takes 1 2dvector argument and returns a number which should be 0 when the vector is in the shape."

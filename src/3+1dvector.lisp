@@ -10,19 +10,19 @@
 
 @export
 (defun 3+1dv (x y z time)
-  @type *desired-type* x
-  @type *desired-type* y
-  @type *desired-type* z
-  @type *desired-type* time
+  @type number x
+  @type number y
+  @type number z
+  @type number time
   (make-instance '3+1dvector :x x :y y :z z :t time))
 
 @export
 (defun 3+1dv-coerce (x y z time)
   (make-instance '3+1dvector
-                 :x (coerce x '*desired-type*)
-                 :y (coerce y '*desired-type*)
-                 :z (coerce z '*desired-type*)
-                 :t (coerce time '*desired-type*)))
+                 :x (coerce x 'number)
+                 :y (coerce y 'number)
+                 :z (coerce z 'number)
+                 :t (coerce time 'number)))
 
 
 (defmethod without-z ((v 3+1dvector))

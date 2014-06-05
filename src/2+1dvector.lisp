@@ -5,7 +5,7 @@
 @export
 @export-accessors
 (defclass time-mixin ()
-  ((time :type *desired-type*
+  ((time :type number
          :initarg :t
          :initarg :time)))
 
@@ -31,22 +31,22 @@
 
 @export
 (defun 2dv-2+1dv (v time)
-  @type *desired-type* time
+  @type number time
   (2+1dv (x-of v) (y-of v) time))
 
 @export
 (defun 2+1dv (x y time)
-  @type *desired-type* x
-  @type *desired-type* y
-  @type *desired-type* time
+  @type number x
+  @type number y
+  @type number time
   (make-instance '2+1dvector :x x :y y :t time))
 
 @export
 (defun 2+1dv-coerce (x y time)
   (make-instance '2+1dvector
-                 :x (coerce x '*desired-type*)
-                 :y (coerce y '*desired-type*)
-                 :t (coerce time '*desired-type*)))
+                 :x (coerce x 'number)
+                 :y (coerce y 'number)
+                 :t (coerce time 'number)))
 
 @export
 (defun make-random-2+1dv (x0 y0 x1 y1 t0 t1)
@@ -76,9 +76,9 @@
   @type 2+1dvector v1
   @type 2+1dvector v2
   (make-instance '2+1dvector
-                 :x (d+ (x-of v1) (x-of v2))
-                 :y (d+ (y-of v1) (y-of v2))
-                 :t (d+ (t-of v1) (t-of v2))))
+                 :x (+ (x-of v1) (x-of v2))
+                 :y (+ (y-of v1) (y-of v2))
+                 :t (+ (t-of v1) (t-of v2))))
 
 (defmethod add ((v1 2+1dvector) (v2 2+1dvector))
   (add-2+1dvector v1 v2))
@@ -88,9 +88,9 @@
   @type 2+1dvector v1
   @type 2+1dvector v2
   (make-instance '2+1dvector
-                 :x (d- (x-of v1) (x-of v2))
-                 :y (d- (y-of v1) (y-of v2))
-                 :t (d- (t-of v1) (t-of v2))))
+                 :x (- (x-of v1) (x-of v2))
+                 :y (- (y-of v1) (y-of v2))
+                 :t (- (t-of v1) (t-of v2))))
 
 (defmethod sub ((v1 2+1dvector) (v2 2+1dvector))
   (sub-2+1dvector v1 v2))
@@ -101,9 +101,9 @@
   @type 2+1dvector v2
   (with-accessors ((x1 x-of) (y1 y-of) (t1 t-of)) v-modified
     (with-accessors ((x2 x-of) (y2 y-of) (t2 t-of)) v2
-      (setf x1 (d- x1 x2)
-            y1 (d- y1 y2)
-            t1 (d- t1 t2))))
+      (setf x1 (- x1 x2)
+            y1 (- y1 y2)
+            t1 (- t1 t2))))
   v-modified)
 
 @export
@@ -112,18 +112,18 @@
   @type 2+1dvector v2
   (with-accessors ((x1 x-of) (y1 y-of) (t1 t-of)) v-modified
     (with-accessors ((x2 x-of) (y2 y-of) (t2 t-of)) v2
-      (setf x1 (d+ x1 x2)
-            y1 (d+ y1 y2)
-            t1 (d+ t1 t2))))
+      (setf x1 (+ x1 x2)
+            y1 (+ y1 y2)
+            t1 (+ t1 t2))))
   v-modified)
 
 @export
 (defun dot-2+1dvector (v1 v2)
   @type 2+1dvector v1
   @type 2+1dvector v2
-  (d+ (d* (x-of v1) (x-of v2))
-      (d* (y-of v1) (y-of v2))
-      (d* (t-of v1) (t-of v2))))
+  (+ (* (x-of v1) (x-of v2))
+      (* (y-of v1) (y-of v2))
+      (* (t-of v1) (t-of v2))))
 
 (defmethod dot ((v1 2+1dvector) (v2 2+1dvector))
   (dot-2+1dvector v1 v2))
@@ -132,7 +132,7 @@
 @export
 (defun norm2-2+1dvector (v1)
   @type 2+1dvector v1
-  (d+ (d^2 (x-of v1))
+  (+ (d^2 (x-of v1))
       (d^2 (y-of v1))
       (d^2 (t-of v1))))
 
@@ -145,20 +145,20 @@
 @export
 (defun scale-2+1dvector (v1 c)
   @type 2+1dvector v1
-  @type *desired-type* c
+  @type number c
   (make-instance '2+1dvector
-                 :x (d* c (x-of v1))
-                 :y (d* c (y-of v1))
-                 :t (d* c (t-of v1))))
+                 :x (* c (x-of v1))
+                 :y (* c (y-of v1))
+                 :t (* c (t-of v1))))
 
 @export
 (defun nscale-2+1dvector (v1 c)
   @type 2+1dvector v1
-  @type *desired-type* c
+  @type number c
   (with-slots (x y time) v1
-    (setf x (d* c x)
-          y (d* c y)
-          time (d* c time))
+    (setf x (* c x)
+          y (* c y)
+          time (* c time))
     v1))
 
 (defmethod scale :around ((v1 2+1dvector) (c double-float))
@@ -173,7 +173,7 @@
 (defmethod translate ((v1 time-mixin) (v2 time-mixin))
   (reinitialize-instance
    (call-next-method)
-   :t (d+ (t-of v1) (t-of v2))))
+   :t (+ (t-of v1) (t-of v2))))
 
 (defmethod dimension ((v1 time-mixin))
   (change-class (call-next-method)

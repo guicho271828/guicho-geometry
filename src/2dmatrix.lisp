@@ -5,7 +5,7 @@
 @export
 @doc "2-dimentional affine conversion matrix."
 (deftype 2dmatrix ()
-  '(simple-array *desired-type* (2 3)))
+  '(simple-array number (2 3)))
 
 (declaim (inline make-2dmatrix))
 
@@ -14,9 +14,9 @@
   (if lst
       (make-array '(2 3)
                   :initial-contents lst
-                  :element-type '*desired-type*)
+                  :element-type 'number)
       (make-array '(2 3)
-                  :element-type '*desired-type*)))
+                  :element-type 'number)))
 
 @export
 (defun make-identity-matrix ()
@@ -50,7 +50,7 @@
   (let ((m (make-2dmatrix)))
     (loop for i from 0 below 6
        do (setf (row-major-aref m i)
-                (d+ (row-major-aref m1 i)
+                (+ (row-major-aref m1 i)
                     (row-major-aref m2 i)))
        finally (return m))))
 
@@ -61,7 +61,7 @@
   (let ((m (make-2dmatrix)))
     (loop for i from 0 below 6
        do (setf (row-major-aref m i)
-                (d- (row-major-aref m1 i)
+                (- (row-major-aref m1 i)
                     (row-major-aref m2 i)))
        finally (return m))))
 
@@ -78,15 +78,15 @@
        for i from 0 below 2
        ;; AA'
        do (loop for j from 0 below 2
-             do (setf (daref m i j)
-                      (the *desired-type*
+             do (setf (aref m i j)
+                      (the number
                            (loop for k from 0 below 2
-                              sum (d* (daref m1 i j) (daref m2 j k))))))
-       do (setf (daref m i 2)
-                (d+ (loop for j from 0 below 2
-                       sum (d* (daref m1 i j)
-                               (daref m2 j 2)))
-                    (daref m1 i 2)))
+                              sum (* (aref m1 i j) (aref m2 j k))))))
+       do (setf (aref m i 2)
+                (+ (loop for j from 0 below 2
+                       sum (* (aref m1 i j)
+                               (aref m2 j 2)))
+                    (aref m1 i 2)))
        finally (return m))))
 
 @export
@@ -103,7 +103,7 @@
 ;; 		(m2 (a-of m2)))
 ;; 	(loop for i from 0 below 6
 ;; 	   do (setf (row-major-aref m1 i)
-;; 				(d+ (row-major-aref m1 i)
+;; 				(+ (row-major-aref m1 i)
 ;; 					(row-major-aref m2 i)))
 ;; 	   finally (return m1))))
 
@@ -112,7 +112,7 @@
 ;; 		(m2 (a-of m2)))
 ;; 	(loop for i from 0 below 6
 ;; 	   do (setf (row-major-aref m1 i)
-;; 				(d- (row-major-aref m1 i)
+;; 				(- (row-major-aref m1 i)
 ;; 					(row-major-aref m2 i)))
 ;; 	   finally (return m1))))
 
@@ -122,10 +122,10 @@
 (defun apply-matrix (matrix vector)
   @type 2dmatrix matrix
   @type 2dvector vector
-  (2dv (d+ (d* (daref matrix 0 0) (x-of vector))
-           (d* (daref matrix 0 1) (y-of vector))
-           (daref matrix 0 2))
-       (d+ (d* (daref matrix 1 0) (x-of vector))
-           (d* (daref matrix 1 1) (y-of vector))
-           (daref matrix 1 2))))
+  (2dv (+ (* (aref matrix 0 0) (x-of vector))
+           (* (aref matrix 0 1) (y-of vector))
+           (aref matrix 0 2))
+       (+ (* (aref matrix 1 0) (x-of vector))
+           (* (aref matrix 1 1) (y-of vector))
+           (aref matrix 1 2))))
 

@@ -60,18 +60,18 @@
 (defmethod add ((r1 hexahedron) (r2 hexahedron))
   (with-slots ((v01 v0) (v11 v1)) r1
     (with-slots ((v02 v0) (v12 v1)) r2
-      (hexa (dmin (x-of v01) (x-of v02))
-            (dmin (y-of v01) (y-of v02))
-            (dmin (z-of v01) (z-of v02))
-            (dmax (x-of v11) (x-of v12))
-            (dmax (y-of v11) (y-of v12))
-            (dmax (z-of v11) (z-of v12))))))
+      (hexa (min (x-of v01) (x-of v02))
+            (min (y-of v01) (y-of v02))
+            (min (z-of v01) (z-of v02))
+            (max (x-of v11) (x-of v12))
+            (max (y-of v11) (y-of v12))
+            (max (z-of v11) (z-of v12))))))
 
 (defmethod volume ((r hexahedron))
   (with-slots (v0 v1) r
-    (d* (d- (x-of v1)
+    (* (- (x-of v1)
             (x-of v0))
-        (d- (y-of v1)
+        (- (y-of v1)
             (y-of v0))
-        (d- (z-of v1)
+        (- (z-of v1)
             (z-of v0)))))

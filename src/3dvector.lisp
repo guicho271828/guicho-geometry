@@ -5,7 +5,7 @@
 @export
 @export-slots
 (defclass 3dvector (2dvector)
-  ((z :type *desired-type* :initarg :z)))
+  ((z :type number :initarg :z)))
 
 (declaim (inline z-of (setf z-of) 3dv))
 
@@ -21,17 +21,17 @@
 
 @export
 (defun 3dv (x y z)
-  @type *desired-type* x
-  @type *desired-type* y
-  @type *desired-type* z
+  @type number x
+  @type number y
+  @type number z
   (make-instance '3dvector :x x :y y :z z))
 
 @export
 (defun 3dv-coerce (x y z)
   (make-instance '3dvector
-                 :x (coerce x '*desired-type*)
-                 :y (coerce y '*desired-type*)
-                 :z (coerce z '*desired-type*)))
+                 :x (coerce x 'number)
+                 :y (coerce y 'number)
+                 :z (coerce z 'number)))
 
 @export
 (defgeneric without-z (v))
@@ -56,31 +56,31 @@
 (defvar +3ez+ (3dv 0.0d0 0.0d0 1.0d0))
 
 (defmethod sub ((v1 3dvector) (v2 3dvector))
-  (3dv (d- (x-of v1) (x-of v2))
-       (d- (y-of v1) (y-of v2))
-       (d- (z-of v1) (z-of v2))))
+  (3dv (- (x-of v1) (x-of v2))
+       (- (y-of v1) (y-of v2))
+       (- (z-of v1) (z-of v2))))
 
 (defmethod add ((v1 3dvector) (v2 3dvector))
-  (3dv (d+ (x-of v1) (x-of v2))
-       (d+ (y-of v1) (y-of v2))
-       (d+ (z-of v1) (z-of v2))))
+  (3dv (+ (x-of v1) (x-of v2))
+       (+ (y-of v1) (y-of v2))
+       (+ (z-of v1) (z-of v2))))
 
 (defmethod nadd ((v1 3dvector) (v2 3dvector))
-  (setf (x-of v1) (d+ (x-of v1) (x-of v2))
-        (y-of v1) (d+ (y-of v1) (y-of v2))
-        (z-of v1) (d+ (z-of v1) (z-of v2)))
+  (setf (x-of v1) (+ (x-of v1) (x-of v2))
+        (y-of v1) (+ (y-of v1) (y-of v2))
+        (z-of v1) (+ (z-of v1) (z-of v2)))
   v1)
 
 (defmethod nsub ((v1 3dvector) (v2 3dvector))
-  (setf (x-of v1) (d- (x-of v1) (x-of v2))
-        (y-of v1) (d- (y-of v1) (y-of v2))
-        (z-of v1) (d- (z-of v1) (z-of v2)))
+  (setf (x-of v1) (- (x-of v1) (x-of v2))
+        (y-of v1) (- (y-of v1) (y-of v2))
+        (z-of v1) (- (z-of v1) (z-of v2)))
   v1)
 
 (defmethod neg ((v1 3dvector))
-  (3dv (d- (x-of v1))
-       (d- (y-of v1))
-       (d- (z-of v1))))
+  (3dv (- (x-of v1))
+       (- (y-of v1))
+       (- (z-of v1))))
 
 (defmethod nneg ((v1 3dvector))
   (setf (x-of v1) (- (x-of v1))
@@ -88,33 +88,33 @@
         (z-of v1) (- (z-of v1))))
 
 (defmethod distance ((v1 3dvector) (v2 3dvector))
-  (let ((dx (d- (x-of v2) (x-of v1)))
-        (dy (d- (y-of v2) (y-of v1)))
-        (dz (d- (z-of v2) (z-of v1))))
-    (sqrt (d+ (d^2 dx) (d^2 dy) (d^2 dz)))))
+  (let ((dx (- (x-of v2) (x-of v1)))
+        (dy (- (y-of v2) (y-of v1)))
+        (dz (- (z-of v2) (z-of v1))))
+    (sqrt (+ (d^2 dx) (d^2 dy) (d^2 dz)))))
 
 (defmethod dot ((v1 3dvector) (v2 3dvector))
-  (d+ (d* (x-of v1) (x-of v2))
-      (d* (y-of v1) (y-of v2))
-      (d* (z-of v1) (z-of v2))))
+  (+ (* (x-of v1) (x-of v2))
+      (* (y-of v1) (y-of v2))
+      (* (z-of v1) (z-of v2))))
 
 (define-permutation-methods dot ((v1 3dvector) (cn number))
   (let ((c (coerce cn 'double-float)))
-    (3dv (d* c (x-of v1)) (d* c (y-of v1)) (d* c (z-of v1)))))
+    (3dv (* c (x-of v1)) (* c (y-of v1)) (* c (z-of v1)))))
 
 (define-permutation-methods ndot ((v1 3dvector) (cn number))
   (let ((c (coerce cn 'double-float)))
-    (setf (x-of v1) (d* c (x-of v1))
-          (y-of v1) (d* c (y-of v1))
-          (z-of v1) (d* c (z-of v1)))))
+    (setf (x-of v1) (* c (x-of v1))
+          (y-of v1) (* c (y-of v1))
+          (z-of v1) (* c (z-of v1)))))
 
 (defmethod norm ((v1 3dvector))
-  (dsqrt (d+ (d^2 (x-of v1))
+  (dsqrt (+ (d^2 (x-of v1))
              (d^2 (y-of v1))
              (d^2 (z-of v1)))))
 
 (defmethod norm2 ((v1 3dvector))
-  (d+ (d^2 (x-of v1))
+  (+ (d^2 (x-of v1))
       (d^2 (y-of v1))
       (d^2 (z-of v1))))
 
@@ -123,29 +123,29 @@
   (dot v1 (d/ 1.0d0 (norm v1))))
 
 (defmethod resize ((v1 3dvector) (length float))
-  (dot v1 (d/ (coerce length '*desired-type*)
+  (dot v1 (d/ (coerce length 'number)
               (norm v1))))
 
 (defmethod nresize ((v1 3dvector) (length float))
-  (let ((n (d/ (coerce length '*desired-type*)
+  (let ((n (d/ (coerce length 'number)
                (norm v1))))
-    (setf (x-of v1) (d* (x-of v1) n)
-          (y-of v1) (d* (y-of v1) n)
-          (z-of v1) (d* (z-of v1) n))
+    (setf (x-of v1) (* (x-of v1) n)
+          (y-of v1) (* (y-of v1) n)
+          (z-of v1) (* (z-of v1) n))
     v1))
 
 (defmethod vector-prod ((v1 3dvector) (v2 3dvector))
-  (3dv (d- (d* (y-of v1)
+  (3dv (- (* (y-of v1)
                (z-of v2))
-           (d* (y-of v2)
+           (* (y-of v2)
                (z-of v1)))
-       (d- (d* (z-of v1)
+       (- (* (z-of v1)
                (x-of v2))
-           (d* (z-of v2)
+           (* (z-of v2)
                (x-of v1)))
-       (d- (d* (x-of v1)
+       (- (* (x-of v1)
                (y-of v2))
-           (d* (x-of v2)
+           (* (x-of v2)
                (y-of v1)))))
 
 (defmethod distance ((p1 3dvector) (p2 3dvector))

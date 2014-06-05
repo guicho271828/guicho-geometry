@@ -10,7 +10,7 @@
   (@required
    (c :type 3dvector :initarg :center :reader center-of)
    @required
-   (r :type *desired-type* :initarg :radius :reader radius-of)))
+   (r :type number :initarg :radius :reader radius-of)))
 
 (defmethod print-object ((v 3dsphere) stream)
   (print-unreadable-object (v stream :type t)
@@ -19,11 +19,11 @@
 
 (defmethod dimension ((s 3dsphere))
   (with-slots (c r) s
-    (let ((d (d* r 2.0d0)))
+    (let ((d (* r 2.0d0)))
       (3dv d d d))))
 
 (defmethod congruent-p ((s1 3dsphere) (s2 3dsphere))
-  (d= (radius s1) (radius s2)))
+  (= (radius s1) (radius s2)))
 
 (defmethod boundary ((s 3dsphere))
   (with-slots (c r) s

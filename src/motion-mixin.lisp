@@ -14,14 +14,14 @@ time."
            :initarg :motion
            :initform (2+1dv 0.0d0 0.0d0 0.0d0)
            :accessor motion)
-   (dt :type *desired-type*)
+   (dt :type number)
    (velocity :type 2dvector)))
 
 ;; (defmethod motion ((m motion-mixin))
 ;;   (with-memoising-slot (motion m)
 ;; 	(with-slots (time) m
 ;; 	  (with-accessors ((c center-of)) m
-;; 		(2+1dv (x-of c) (y-of c) (d+ +dt+ time))))))
+;; 		(2+1dv (x-of c) (y-of c) (+ +dt+ time))))))
 
 (defmethod (setf motion) :after ((v 2+1dvector) (m motion-mixin))
   (slot-makunbound m 'velocity)
@@ -31,7 +31,7 @@ time."
 (defun dt (movable)
   (with-memoising-slot (dt movable)
     (with-slots (motion time) movable
-      (d- (t-of motion) time))))
+      (- (t-of motion) time))))
 
 @export
 (defgeneric motion-velocity-of (movable))
@@ -74,7 +74,7 @@ time."
 (defgeneric future-center-position (movable time))
 (defmethod future-center-position ((m motion-mixin) time)
   (nadd-vector (scale-vector (motion-velocity-of m)
-                             (d- time (t-of m)))
+                             (- time (t-of m)))
                (center-of m)))
 (defmethod future-center-position ((s 2dshape) time)
   (shallow-copy (center-of s)))
@@ -84,7 +84,7 @@ time."
 (defmethod future-shape ((m motion-mixin) time)
   (translate m (scale-vector
                 (motion-velocity-of m)
-                (d- time (t-of m)))))
+                (- time (t-of m)))))
 
 (defmethod future-shape ((s 2dshape) time) s)
 
@@ -99,22 +99,22 @@ time."
                            (motion-velocity-of movable1)))
            (dv1 (normalize dv))
            (perp (dot dp (rotate90 dv1)))
-           (r (d+ (radius movable1) (radius movable2))))
-      (if (d< (dabs r) (dabs perp))
+           (r (+ (radius movable1) (radius movable2))))
+      (if (< (dabs r) (dabs perp))
           nil
           (let* ((dvnorm (norm dv))
-                 (t-center  (d+ time (d/ (dot dp dv1) dvnorm)))
-                 (t-width/2 (d/ (dsqrt (d- (d* r r) (d* perp perp)))
+                 (t-center  (+ time (d/ (dot dp dv1) dvnorm)))
+                 (t-width/2 (d/ (dsqrt (- (* r r) (* perp perp)))
                                 dvnorm)))
             (values
              (region-product
               t-range
               (make-range
-               (d- t-center t-width/2)
-               (d+ t-center t-width/2)))
+               (- t-center t-width/2)
+               (+ t-center t-width/2)))
              (make-range
-              (d- t-center t-width/2)
-              (d+ t-center t-width/2))))))))
+              (- t-center t-width/2)
+              (+ t-center t-width/2))))))))
 
 @export
 (defun intersect-at-time (m1 m2 time)
@@ -134,11 +134,11 @@ time."
 (defparameter +minumum-dt+ 1.0d-3)
 
 (defun %when-intersect (m1 m2 dl dt candidate)
-  (if (d< dt +minumum-dt+)
+  (if (< dt +minumum-dt+)
       (%when-intersect-last m1 m2 dl candidate)
       (iter
        (with next-dl = nil)
-       (with next-dt = (d* 0.5d0 dt))
+       (with next-dt = (* 0.5d0 dt))
        (while dl)
        (for time = (dlist:dlist-pop dl))
                                         ;(print time)
@@ -146,9 +146,9 @@ time."
          ;; (print :go-back)
          (return
            (%when-intersect
-            m1 m2 (dlist:dlist (d- time next-dt)) next-dt time)))
-       (dlist:dlist-push (d- time next-dt) next-dl :at-end t)
-       (dlist:dlist-push (d+ time next-dt) next-dl :at-end t)
+            m1 m2 (dlist:dlist (- time next-dt)) next-dt time)))
+       (dlist:dlist-push (- time next-dt) next-dl :at-end t)
+       (dlist:dlist-push (+ time next-dt) next-dl :at-end t)
        (finally
         ;; (print :go-further)
         (return
@@ -169,7 +169,7 @@ nil."
          ;; (print :detected-at-the-end)
          (%when-intersect
           m1 m2
-          (dlist:dlist (d* (d+ from (d* 3.0d0 to)) 0.25d0))
+          (dlist:dlist (* (+ from (* 3.0d0 to)) 0.25d0))
           (radius time-range)
           to))
         (t

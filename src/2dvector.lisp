@@ -5,8 +5,8 @@
 @export
 @export-slots
 (defclass 2dvector (deep-copyable)
-  ((x :type *desired-type* :initarg :x)
-   (y :type *desired-type* :initarg :y)))
+  ((x :type number :initarg :x)
+   (y :type number :initarg :y)))
 
 (defmethod print-object ((v 2dvector) stream)
   (print-unreadable-object (v stream :type t)
@@ -44,7 +44,7 @@
 
 @export
 (defun 2dv (x y)
-  @type *desired-type* x y
+  @type number x y
   (make-instance '2dvector :x x :y y))
 
 @export
@@ -87,9 +87,9 @@ for 2dvector, it just returns the area of parallelogram
 (defun perp-dot (v1 v2)
   @type 2dvector v1
   @type 2dvector v2
-  (d- (d* (x-of v1)
+  (- (* (x-of v1)
           (y-of v2))
-      (d* (x-of v2)
+      (* (x-of v2)
           (y-of v1))))
 
 @export
@@ -97,7 +97,7 @@ for 2dvector, it just returns the area of parallelogram
 (defun rotate90 (v)
   @type 2dvector v
   (make-instance (class-of v)
-                 :x (d- (y-of v))
+                 :x (- (y-of v))
                  :y (x-of v)))
 @export
 @doc "create a new vector by rotating the original by -pi/2 radian"
@@ -105,7 +105,7 @@ for 2dvector, it just returns the area of parallelogram
   @type 2dvector v
   (make-instance (class-of v)
                  :x (y-of v)
-                 :y (d- (x-of v))))
+                 :y (- (x-of v))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; vector methods
 
@@ -114,8 +114,8 @@ for 2dvector, it just returns the area of parallelogram
   @type 2dvector v1
   @type 2dvector v2
   (make-instance '2dvector
-                 :x (d+ (x-of v1) (x-of v2))
-                 :y (d+ (y-of v1) (y-of v2))))
+                 :x (+ (x-of v1) (x-of v2))
+                 :y (+ (y-of v1) (y-of v2))))
 
 (defmethod add ((v1 2dvector) (v2 2dvector))
   (add-vector v1 v2))
@@ -125,8 +125,8 @@ for 2dvector, it just returns the area of parallelogram
   @type 2dvector v1
   @type 2dvector v2
   (make-instance '2dvector
-                 :x (d- (x-of v1) (x-of v2))
-                 :y (d- (y-of v1) (y-of v2))))
+                 :x (- (x-of v1) (x-of v2))
+                 :y (- (y-of v1) (y-of v2))))
 
 (defmethod sub ((v1 2dvector) (v2 2dvector))
   (sub-vector v1 v2))
@@ -134,8 +134,8 @@ for 2dvector, it just returns the area of parallelogram
 @export
 (defun nadd-vector (v-modified v2)
   (with-slots (x y) v-modified
-    (setf x (d+ x (x-of v2))
-          y (d+ y (y-of v2)))
+    (setf x (+ x (x-of v2))
+          y (+ y (y-of v2)))
     v-modified))
 
 @export
@@ -143,16 +143,16 @@ for 2dvector, it just returns the area of parallelogram
   @type 2dvector v-modified
   @type 2dvector v2
   (with-slots (x y) v-modified
-    (setf x (d- x (x-of v2))
-          y (d- y (y-of v2)))
+    (setf x (- x (x-of v2))
+          y (- y (y-of v2)))
     v-modified))
 
 @export
 (defun dot-vector (v1 v2)
   @type 2dvector v1
   @type 2dvector v2
-  (d+ (d* (x-of v1) (x-of v2))
-      (d* (y-of v1) (y-of v2))))
+  (+ (* (x-of v1) (x-of v2))
+      (* (y-of v1) (y-of v2))))
 
 (defmethod dot ((v1 2dvector) (v2 2dvector))
   (dot-vector v1 v2))
@@ -160,7 +160,7 @@ for 2dvector, it just returns the area of parallelogram
 @export
 (defun norm2-vector (v1)
   @type 2dvector v1
-  (d+ (d^2 (x-of v1))
+  (+ (d^2 (x-of v1))
       (d^2 (y-of v1))))
 
 (defmethod norm2 ((v1 2dvector))
@@ -179,18 +179,18 @@ for 2dvector, it just returns the area of parallelogram
 @export
 (defun scale-vector (v1 c)
   @type 2dvector v1
-  @type *desired-type* c
+  @type number c
   (make-instance '2dvector
-                 :x (d* c (x-of v1))
-                 :y (d* c (y-of v1))))
+                 :x (* c (x-of v1))
+                 :y (* c (y-of v1))))
 
 @export
 (defun nscale-vector (v1 c)
   @type 2dvector v1
-  @type *desired-type* c
+  @type number c
   (with-slots (x y) v1
-    (setf x (d* c x)
-          y (d* c y))
+    (setf x (* c x)
+          y (* c y))
     v1))
 
 (defmethod scale ((v1 2dvector) (c double-float))
@@ -215,8 +215,8 @@ for 2dvector, it just returns the area of parallelogram
   (zerop (dot-vector v1 v2)))
 
 (defmethod congruent-p ((v1 2dvector) (v2 2dvector))
-  (and (d=~ (x-of v1) (x-of v2))
-       (d=~ (y-of v1) (y-of v2))))
+  (and (=~ (x-of v1) (x-of v2))
+       (=~ (y-of v1) (y-of v2))))
 
 (defmethod ->list ((v 2dvector))
   (list (x-of v) (y-of v)))

@@ -3,11 +3,11 @@
 
 ;; @export
 ;; (deftype range ()
-;;   `(simple-array *desired-type* 2))
+;;   `(simple-array number 2))
 ;; (defun range (from to)
-;;   (let ((r (make-array 2 :element-type '*desired-type*)))
-;; 	(setf (aref range 0) (coerce (dmin from to) '*desired-type*)
-;; 		  (aref range 1) (coerce (dmax from to) '*desired-type*))
+;;   (let ((r (make-array 2 :element-type 'number)))
+;; 	(setf (aref range 0) (coerce (min from to) 'number)
+;; 		  (aref range 1) (coerce (max from to) 'number))
 ;; 	r))
 ;; (defun lbound-of (range)
 ;;   (aref range 0))
@@ -17,8 +17,8 @@
 @export
 @export-accessors
 (defclass range (diameter-based-mixin)
-  ((from :type *desired-type* :initarg :from :reader range-from)
-   (to :type *desired-type* :initarg :to :reader range-to)))
+  ((from :type number :initarg :from :reader range-from)
+   (to :type number :initarg :to :reader range-to)))
 
 (defmethod print-object ((v range) stream)
   (print-unreadable-object (v stream :type t)
@@ -27,10 +27,10 @@
 
 @export
 (defun make-range (from to)
-  @type *desired-type* from to
+  @type number from to
   (make-instance 'range
-                 :from (dmin from to)
-                 :to (dmax from to)))
+                 :from (min from to)
+                 :to (max from to)))
 
 @export
 (defun make-range-coerce (from to)
@@ -39,23 +39,23 @@
 
 (defmethod diameter ((rng range))
   (with-slots (from to) rng
-    (d- to from)))
+    (- to from)))
 
 (defmethod center-of ((rng range))
   (with-slots (from to) rng
-    (d* (d+ to from) 0.5d0)))
+    (* (+ to from) 0.5d0)))
 
 (defmethod contains-p ((rng range) (n number))
   (with-slots (from to) rng
-    (cond ((d< from n to) :in)
-          ((d= from n) :min)
-          ((d= n to) :max)
+    (cond ((< from n to) :in)
+          ((= from n) :min)
+          ((= n to) :max)
           (t nil))))
 
 
 (defmethod congruent-p ((r1 range) (r2 range))
-  (and (d=~ (range-from r1) (range-from r2))
-       (d=~ (range-to r1) (range-to r2))))
+  (and (=~ (range-from r1) (range-from r2))
+       (=~ (range-to r1) (range-to r2))))
 
 (define-permutation-methods congruent-p ((r1 range) (r2 null))
   nil)
@@ -63,10 +63,10 @@
 (declaim (inline %intersects-p))
 (defun %intersects-p (r1 r2)
   @type range r1 r2
-  (or (and (d< (range-from r1) (range-to r2))
-           (d<= (range-to r2) (range-to r1)))
-      (and (d<= (range-from r1) (range-from r2))
-           (d< (range-from r2) (range-to r1)))))
+  (or (and (< (range-from r1) (range-to r2))
+           (<= (range-to r2) (range-to r1)))
+      (and (<= (range-from r1) (range-from r2))
+           (< (range-from r2) (range-to r1)))))
 
 (defmethod intersects-p ((r1 range) (r2 range))
   (or (%intersects-p r1 r2)

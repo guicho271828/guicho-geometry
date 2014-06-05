@@ -5,9 +5,9 @@
 @export
 @doc "3-dimentional affine conversion matrix."
 (defclass 3dmatrix (recursive-print-mixin)
-  ((array :type (array *desired-type* (3 4))
+  ((array :type (array number (3 4))
           :initarg :array
-          :initform (make-array '(3 4) :element-type '*desired-type*)
+          :initform (make-array '(3 4) :element-type 'number)
           :accessor a-of
           :accessor m-of)))
 
@@ -18,9 +18,9 @@
   (if lst
       (make-array '(3 4)
                   :initial-contents lst
-                  :element-type '*desired-type*)
+                  :element-type 'number)
       (make-array '(3 4)
-                  :element-type '*desired-type*)))
+                  :element-type 'number)))
 
 @export
 (defun rot-x (rad)
@@ -71,7 +71,7 @@
         (m2 (m-of m2)))
     (loop for i from 0 below 12
        do (setf (row-major-aref m i)
-                (d+ (row-major-aref m1 i)
+                (+ (row-major-aref m1 i)
                     (row-major-aref m2 i)))
        finally (return (make-instance '3dmatrix :array m)))))
 
@@ -81,7 +81,7 @@
         (m2 (m-of m2)))
     (loop for i from 0 below 12
        do (setf (row-major-aref m i)
-                (d- (row-major-aref m1 i)
+                (- (row-major-aref m1 i)
                     (row-major-aref m2 i)))
        finally (return (make-instance '3dmatrix :array m)))))
 
@@ -127,7 +127,7 @@
         (a2 (a-of m2)))
     (loop for i from 0 below 12
        do (setf (row-major-aref a1 i)
-                (d+ (row-major-aref a1 i)
+                (+ (row-major-aref a1 i)
                     (row-major-aref a2 i)))
        finally (return m1))))
 
@@ -136,7 +136,7 @@
         (a2 (a-of m2)))
     (loop for i from 0 below 12
        do (setf (row-major-aref a1 i)
-                (d- (row-major-aref a1 i)
+                (- (row-major-aref a1 i)
                     (row-major-aref a2 i)))
        finally (return m1))))
 

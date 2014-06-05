@@ -11,7 +11,7 @@
 @export
 (defclass 3dcone (3dsegment)
   ((from :type 3dvector :initarg :vertex :reader vertex-of)
-   (tan :type *desired-type* :initarg :vertex-tangent :reader vertex-tangent-of)))
+   (tan :type number :initarg :vertex-tangent :reader vertex-tangent-of)))
 
 (defmethod initialize-instance ((c 3dcone) &key (angle 0 angle-supplied-p))
   (if (angle-supplied-p)
@@ -25,11 +25,11 @@
 
 (defmethod dimension ((s 3dsphere))
   (with-slots (c r) s
-    (let ((d (d* r 2.0d0)))
+    (let ((d (* r 2.0d0)))
       (3dv d d d))))
 
 (defmethod congruent-p ((s1 3dsphere) (s2 3dsphere))
-  (d= (radius s1) (radius s2)))
+  (= (radius s1) (radius s2)))
 
 (defmethod boundary ((s 3dsphere))
   (with-slots (c r) s

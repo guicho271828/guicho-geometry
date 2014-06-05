@@ -95,18 +95,18 @@
 (defmethod region-sum ((r1 2drectangle) (r2 2drectangle))
   (with-slots ((v01 v0) (v11 v1)) r1
     (with-slots ((v02 v0) (v12 v1)) r2
-      (rect (dmin (x-of v01) (x-of v02))
-            (dmin (y-of v01) (y-of v02))
-            (dmax (x-of v11) (x-of v12))
-            (dmax (y-of v11) (y-of v12))))))
+      (rect (min (x-of v01) (x-of v02))
+            (min (y-of v01) (y-of v02))
+            (max (x-of v11) (x-of v12))
+            (max (y-of v11) (y-of v12))))))
 
 (defmethod region-difference ((r1 2drectangle) (r2 2drectangle))
   (with-slots ((v01 v0) (v11 v1)) r1
     (with-slots ((v02 v0) (v12 v1)) r2
-      (rect (dmax (x-of v01) (x-of v02))
-            (dmax (y-of v01) (y-of v02))
-            (dmin (x-of v11) (x-of v12))
-            (dmin (y-of v11) (y-of v12))))))
+      (rect (max (x-of v01) (x-of v02))
+            (max (y-of v01) (y-of v02))
+            (min (x-of v11) (x-of v12))
+            (min (y-of v11) (y-of v12))))))
 
 (defmethod translate ((r 2drectangle) (v 2dvector))
   (with-slots (v0 v1) r
@@ -125,9 +125,9 @@
 
 (defmethod volume ((r 2drectangle))
   (with-slots (v0 v1) r
-    (d* (d- (x-of v1)
+    (* (- (x-of v1)
             (x-of v0))
-        (d- (y-of v1)
+        (- (y-of v1)
             (y-of v0)))))
 
 (defmethod distance ((r 2drectangle) (v 2dvector))
@@ -137,20 +137,20 @@
   (with-slots (v0 v1) r
     (with-slots (x y) v
       (cond
-        ((d< x (x-of v0))
+        ((< x (x-of v0))
          (cond
-           ((d< y (y-of v0))            (distance v v0))
-           ((d< (y-of v0) y (y-of v1))  (d- (x-of v0) x))
+           ((< y (y-of v0))            (distance v v0))
+           ((< (y-of v0) y (y-of v1))  (- (x-of v0) x))
            (t                           (distance v (top-left-of r)))))
-        ((d< (x-of v0) x (x-of v1))
+        ((< (x-of v0) x (x-of v1))
          (cond
-           ((d< y (y-of v0))            (d- (y-of v0) y))
-           ((d< (y-of v0) y (y-of v1))  0.0d0)
-           (t                           (d- y (y-of v1)))))
+           ((< y (y-of v0))            (- (y-of v0) y))
+           ((< (y-of v0) y (y-of v1))  0.0d0)
+           (t                           (- y (y-of v1)))))
         (t
          (cond
-           ((d< y (y-of v0))            (distance v v1))
-           ((d< (y-of v0) y (y-of v1))  (d- x (x-of v1)))
+           ((< y (y-of v0))            (distance v v1))
+           ((< (y-of v0) y (y-of v1))  (- x (x-of v1)))
            (t                           (distance v (bottom-right-of r)))))))))
 
 

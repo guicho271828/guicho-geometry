@@ -7,12 +7,12 @@
 @export
 (defclass 2dcircle (deep-copyable radius-based-mixin 2dshape)
   ((c :type 2dvector :initarg :center :reader center-of)
-   (r :type *desired-type* :initarg :radius :reader radius)))
+   (r :type number :initarg :radius :reader radius)))
 
 @export
 (defun circle (center radius)
   @type 2dvector center
-  @type *desired-type* radius
+  @type number radius
   (new '2dcircle :center center :radius radius))
 
 @export
@@ -31,11 +31,11 @@
 
 (defmethod dimension ((s 2dcircle))
   (with-slots (c r) s
-    (let ((d (d* r 2.0d0)))
+    (let ((d (* r 2.0d0)))
       (2dv d d))))
 
 (defmethod congruent-p ((s1 2dcircle) (s2 2dcircle))
-  (d= (radius s1) (radius s2)))
+  (= (radius s1) (radius s2)))
 
 (defmethod boundary ((s 2dcircle))
   (with-slots (c r) s
@@ -50,7 +50,7 @@
 
 (defmethod minimum-distance ((circle 2dcircle) (v 2dvector))
   (with-slots (c r) circle
-    (d- (distance c v) r)))
+    (- (distance c v) r)))
 
 (defmethod contains-p ((circle 2dcircle) (v 2dvector))
   (minusp (minimum-distance circle v)))
@@ -58,7 +58,7 @@
 (defmethod intersects-p ((ci1 2dcircle) (ci2 2dcircle))
   (with-slots ((c1 c) (r1 r)) ci1
     (with-slots ((c2 c) (r2 r)) ci2
-      (d< (distance c1 c2) (d+ r1 r2)))))
+      (< (distance c1 c2) (+ r1 r2)))))
 
 (define-permutation-methods intersects-p ((circle 2dcircle) (po 2dpolygon))
   (with-slots (c r) circle
@@ -69,11 +69,11 @@
                  (intersects-p (make-range (reduce #'max projections)
                                            (reduce #'min projections))
                                (let ((projection (dot-vector c axis)))
-                                 (make-range (d+ projection r)
-                                             (d- projection r))))))
+                                 (make-range (+ projection r)
+                                             (- projection r))))))
              axes))))
 
 (defmethod translate ((circle 2dcircle) (v 2dvector))
   (deep-copy circle :center (add (center-of circle) v)))
 (defmethod scale ((circle 2dcircle) (n double-float))
-  (deep-copy circle :radius (d* (radius circle) n)))
+  (deep-copy circle :radius (* (radius circle) n)))

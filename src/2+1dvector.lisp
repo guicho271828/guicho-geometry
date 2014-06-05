@@ -42,22 +42,10 @@
   (make-instance '2+1dvector :x x :y y :t time))
 
 @export
-(defun 2+1dv-coerce (x y time)
-  (make-instance '2+1dvector
-                 :x (coerce x 'number)
-                 :y (coerce y 'number)
-                 :t (coerce time 'number)))
-
-@export
 (defun make-random-2+1dv (x0 y0 x1 y1 t0 t1)
   (2+1dv (drandom-between x0 x1)
          (drandom-between y0 y1)
          (drandom-between t0 t1)))
-
-
-(alias 2+1dv* 2+1dv-coerce)
-
-@export #'2+1dv*
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; functions

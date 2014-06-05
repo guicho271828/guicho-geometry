@@ -48,28 +48,9 @@
   (make-instance '2dvector :x x :y y))
 
 @export
-(defun 2dv-coerce (x y)
-  (make-instance '2dvector
-                 :x x
-                 :y y))
-
-@export
 (defun make-random-2dv (x0 y0 x1 y1)
   (2dv (drandom-between x0 x1)
        (drandom-between y0 y1)))
-
-@export
-(defun make-random-2dv-coerce (x0 y0 x1 y1)
-  (2dv-coerce (random-between x0 x1)
-              (random-between y0 y1)))
-
-
-(alias 2dv* 2dv-coerce)
-(alias make-random-2dv* make-random-2dv-coerce)
-
-@export #'2dv*
-@export #'make-random-2dv*
-
 
 @export
 (defvar +2origin+ (2dv 0.0d0 0.0d0))

@@ -15,15 +15,6 @@
   @type number radius
   (new '2dcircle :center center :radius radius))
 
-@export
-(defun circle-coerce (center radius)
-  @type 2dvector center
-  (new '2dcircle :center center :radius radius))
-
-(alias circle* circle-coerce)
-
-@export #'circle*
-
 (defmethod print-object ((v 2dcircle) stream)
   (print-unreadable-object (v stream :type t)
     (with-slots (r c) v

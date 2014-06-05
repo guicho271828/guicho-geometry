@@ -30,13 +30,6 @@
                  :from (3dv fx fy fz)
                  :to (3dv tx ty tz)))
 
-
-@export
-(defun 3dsegment-coerce (fx fy fz tx ty tz)
-  (make-instance '3dsegment
-                 :from (3dv-coerce fx fy fz)
-                 :to (3dv-coerce tx ty tz)))
-
 ;; different from 2dvector
 (defmethod distance ((seg 3dsegment) (p 3dvector))
   (with-slots (from to) seg

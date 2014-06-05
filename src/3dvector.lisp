@@ -27,13 +27,6 @@
   (make-instance '3dvector :x x :y y :z z))
 
 @export
-(defun 3dv-coerce (x y z)
-  (make-instance '3dvector
-                 :x (coerce x 'number)
-                 :y (coerce y 'number)
-                 :z (coerce z 'number)))
-
-@export
 (defgeneric without-z (v))
 (defmethod without-z ((v 3dvector))
   (2dv (x-of v) (y-of v)))
@@ -98,15 +91,13 @@
       (* (y-of v1) (y-of v2))
       (* (z-of v1) (z-of v2))))
 
-(define-permutation-methods dot ((v1 3dvector) (cn number))
-  (let ((c (coerce cn 'double-float)))
-    (3dv (* c (x-of v1)) (* c (y-of v1)) (* c (z-of v1)))))
+(define-permutation-methods dot ((v1 3dvector) (c number))
+  (3dv (* c (x-of v1)) (* c (y-of v1)) (* c (z-of v1))))
 
-(define-permutation-methods ndot ((v1 3dvector) (cn number))
-  (let ((c (coerce cn 'double-float)))
-    (setf (x-of v1) (* c (x-of v1))
-          (y-of v1) (* c (y-of v1))
-          (z-of v1) (* c (z-of v1)))))
+(define-permutation-methods ndot ((v1 3dvector) (c number))
+  (setf (x-of v1) (* c (x-of v1))
+        (y-of v1) (* c (y-of v1))
+        (z-of v1) (* c (z-of v1))))
 
 (defmethod norm ((v1 3dvector))
   (dsqrt (+ (d^2 (x-of v1))
@@ -123,12 +114,10 @@
   (dot v1 (d/ 1.0d0 (norm v1))))
 
 (defmethod resize ((v1 3dvector) (length float))
-  (dot v1 (d/ (coerce length 'number)
-              (norm v1))))
+  (dot v1 (d/ length (norm v1))))
 
 (defmethod nresize ((v1 3dvector) (length float))
-  (let ((n (d/ (coerce length 'number)
-               (norm v1))))
+  (let ((n (d/ length (norm v1))))
     (setf (x-of v1) (* (x-of v1) n)
           (y-of v1) (* (y-of v1) n)
           (z-of v1) (* (z-of v1) n))
@@ -164,13 +153,6 @@
 
 (defmethod ->list ((v 3dvector))
   (list (x-of v) (y-of v) (z-of v)))
-
-
-@export
-(defun make-random-3dv-coerce (x0 y0 z0 x1 y1 z1)
-  (3dv-coerce (random-between x0 x1)
-              (random-between y0 y1)
-              (random-between z0 z1)))
 
 @export
 (defun make-random-3dv (x0 y0 z0 x1 y1 z1)

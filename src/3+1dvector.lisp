@@ -16,15 +16,6 @@
   @type number time
   (make-instance '3+1dvector :x x :y y :z z :t time))
 
-@export
-(defun 3+1dv-coerce (x y z time)
-  (make-instance '3+1dvector
-                 :x (coerce x 'number)
-                 :y (coerce y 'number)
-                 :z (coerce z 'number)
-                 :t (coerce time 'number)))
-
-
 (defmethod without-z ((v 3+1dvector))
   (with-slots (x y z time) v
     (2+1dv x y time)))

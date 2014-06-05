@@ -7,11 +7,11 @@
 (defclass 3dplane (infinity-shape 3dshape)
   ((base :type 3dvector
          :initarg :base
-         :initform (3dv-coerce 0 0 0)
+         :initform (3dv 0 0 0)
          :accessor base-of)
    (normal :type 3dvector
            :initarg :normal
-           :initform (3dv-coerce 0 0 1)
+           :initform (3dv 0 0 1)
            :reader normal-of)))
 
 (defmethod implicit-function ((plane 3dplane))

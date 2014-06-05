@@ -17,12 +17,6 @@
    (dimension :type 2dvector)))
 
 @export
-(defun rect-coerce (x0 y0 x1 y1)
-  (make-instance '2drectangle
-                 :bottom-left (2dv-coerce x0 y0)
-                 :top-right (2dv-coerce x1 y1)))
-
-@export
 (defun rect (x0 y0 x1 y1)
   (make-instance '2drectangle
                  :bottom-left (2dv x0 y0)

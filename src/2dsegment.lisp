@@ -30,15 +30,6 @@
                  :to (2dv tx ty)))
 
 @export
-(defun 2dsegment-coerce (fx fy tx ty)
-  (make-instance '2dsegment
-                 :from (2dv-coerce fx fy)
-                 :to (2dv-coerce tx ty)))
-
-(alias 2dsegment* 2dsegment-coerce)
-(export '(2dsegment*))
-
-@export
 (defun 2dv-segment (v1 v2)
   (make-instance '2dsegment
                  :from v1

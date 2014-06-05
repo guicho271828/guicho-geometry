@@ -32,11 +32,6 @@
                  :from (min from to)
                  :to (max from to)))
 
-@export
-(defun make-range-coerce (from to)
-  (make-range from
-              to))
-
 (defmethod diameter ((rng range))
   (with-slots (from to) rng
     (- to from)))

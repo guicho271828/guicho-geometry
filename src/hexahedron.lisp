@@ -14,12 +14,6 @@
    (dimension :type 3dvector)))
 
 @export
-(defun hexa-coerce (x0 y0 z0 x1 y1 z1)
-  (make-instance 'hexahedron
-                 :bottom-left (3dv-coerce x0 y0 z0)
-                 :top-right (3dv-coerce x1 y1 z1)))
-
-@export
 (defun hexa (x0 y0 z0 x1 y1 z1)
   (make-instance 'hexahedron
                  :bottom-left (3dv x0 y0 z0)

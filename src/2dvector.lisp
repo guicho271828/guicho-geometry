@@ -69,9 +69,9 @@ for 2dvector, it just returns the area of parallelogram
   @type 2dvector v1
   @type 2dvector v2
   (- (* (x-of v1)
-          (y-of v2))
-      (* (x-of v2)
-          (y-of v1))))
+        (y-of v2))
+     (* (x-of v2)
+        (y-of v1))))
 
 @export
 @doc "create a new vector by rotating the original by pi/2 radian"
@@ -133,7 +133,7 @@ for 2dvector, it just returns the area of parallelogram
   @type 2dvector v1
   @type 2dvector v2
   (+ (* (x-of v1) (x-of v2))
-      (* (y-of v1) (y-of v2))))
+     (* (y-of v1) (y-of v2))))
 
 (defmethod dot ((v1 2dvector) (v2 2dvector))
   (dot-vector v1 v2))
@@ -142,7 +142,7 @@ for 2dvector, it just returns the area of parallelogram
 (defun norm2-vector (v1)
   @type 2dvector v1
   (+ (d^2 (x-of v1))
-      (d^2 (y-of v1))))
+     (d^2 (y-of v1))))
 
 (defmethod norm2 ((v1 2dvector))
   (norm2-vector v1))

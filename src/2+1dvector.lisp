@@ -110,8 +110,8 @@
   @type 2+1dvector v1
   @type 2+1dvector v2
   (+ (* (x-of v1) (x-of v2))
-      (* (y-of v1) (y-of v2))
-      (* (t-of v1) (t-of v2))))
+     (* (y-of v1) (y-of v2))
+     (* (t-of v1) (t-of v2))))
 
 (defmethod dot ((v1 2+1dvector) (v2 2+1dvector))
   (dot-2+1dvector v1 v2))
@@ -121,8 +121,8 @@
 (defun norm2-2+1dvector (v1)
   @type 2+1dvector v1
   (+ (d^2 (x-of v1))
-      (d^2 (y-of v1))
-      (d^2 (t-of v1))))
+     (d^2 (y-of v1))
+     (d^2 (t-of v1))))
 
 (defmethod norm2 ((v1 2+1dvector))
   (norm2-2+1dvector v1))

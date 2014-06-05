@@ -72,7 +72,7 @@
     (loop for i from 0 below 12
        do (setf (row-major-aref m i)
                 (+ (row-major-aref m1 i)
-                    (row-major-aref m2 i)))
+                   (row-major-aref m2 i)))
        finally (return (make-instance '3dmatrix :array m)))))
 
 (defmethod sub ((m1 3dmatrix) (m2 3dmatrix))
@@ -82,7 +82,7 @@
     (loop for i from 0 below 12
        do (setf (row-major-aref m i)
                 (- (row-major-aref m1 i)
-                    (row-major-aref m2 i)))
+                   (row-major-aref m2 i)))
        finally (return (make-instance '3dmatrix :array m)))))
 
 (defmethod dot ((m1 3dmatrix) (m2 3dmatrix))
@@ -128,7 +128,7 @@
     (loop for i from 0 below 12
        do (setf (row-major-aref a1 i)
                 (+ (row-major-aref a1 i)
-                    (row-major-aref a2 i)))
+                   (row-major-aref a2 i)))
        finally (return m1))))
 
 (defmethod nsub ((m1 3dmatrix) (m2 3dmatrix))
@@ -137,6 +137,6 @@
     (loop for i from 0 below 12
        do (setf (row-major-aref a1 i)
                 (- (row-major-aref a1 i)
-                    (row-major-aref a2 i)))
+                   (row-major-aref a2 i)))
        finally (return m1))))
 

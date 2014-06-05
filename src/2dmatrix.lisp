@@ -51,7 +51,7 @@
     (loop for i from 0 below 6
        do (setf (row-major-aref m i)
                 (+ (row-major-aref m1 i)
-                    (row-major-aref m2 i)))
+                   (row-major-aref m2 i)))
        finally (return m))))
 
 @export
@@ -62,7 +62,7 @@
     (loop for i from 0 below 6
        do (setf (row-major-aref m i)
                 (- (row-major-aref m1 i)
-                    (row-major-aref m2 i)))
+                   (row-major-aref m2 i)))
        finally (return m))))
 
 ;; | A b |   | A' b' |   | AA' Ab'+b |
@@ -84,9 +84,9 @@
                               sum (* (aref m1 i j) (aref m2 j k))))))
        do (setf (aref m i 2)
                 (+ (loop for j from 0 below 2
-                       sum (* (aref m1 i j)
-                               (aref m2 j 2)))
-                    (aref m1 i 2)))
+                      sum (* (aref m1 i j)
+                             (aref m2 j 2)))
+                   (aref m1 i 2)))
        finally (return m))))
 
 @export
@@ -123,9 +123,9 @@
   @type 2dmatrix matrix
   @type 2dvector vector
   (2dv (+ (* (aref matrix 0 0) (x-of vector))
-           (* (aref matrix 0 1) (y-of vector))
-           (aref matrix 0 2))
+          (* (aref matrix 0 1) (y-of vector))
+          (aref matrix 0 2))
        (+ (* (aref matrix 1 0) (x-of vector))
-           (* (aref matrix 1 1) (y-of vector))
-           (aref matrix 1 2))))
+          (* (aref matrix 1 1) (y-of vector))
+          (aref matrix 1 2))))
 

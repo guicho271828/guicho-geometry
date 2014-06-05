@@ -64,8 +64,8 @@
 (defmethod volume ((r hexahedron))
   (with-slots (v0 v1) r
     (* (- (x-of v1)
-            (x-of v0))
-        (- (y-of v1)
-            (y-of v0))
-        (- (z-of v1)
-            (z-of v0)))))
+          (x-of v0))
+       (- (y-of v1)
+          (y-of v0))
+       (- (z-of v1)
+          (z-of v0)))))

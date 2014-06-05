@@ -88,8 +88,8 @@
 
 (defmethod dot ((v1 3dvector) (v2 3dvector))
   (+ (* (x-of v1) (x-of v2))
-      (* (y-of v1) (y-of v2))
-      (* (z-of v1) (z-of v2))))
+     (* (y-of v1) (y-of v2))
+     (* (z-of v1) (z-of v2))))
 
 (define-permutation-methods dot ((v1 3dvector) (c number))
   (3dv (* c (x-of v1)) (* c (y-of v1)) (* c (z-of v1))))
@@ -101,13 +101,13 @@
 
 (defmethod norm ((v1 3dvector))
   (dsqrt (+ (d^2 (x-of v1))
-             (d^2 (y-of v1))
-             (d^2 (z-of v1)))))
+            (d^2 (y-of v1))
+            (d^2 (z-of v1)))))
 
 (defmethod norm2 ((v1 3dvector))
   (+ (d^2 (x-of v1))
-      (d^2 (y-of v1))
-      (d^2 (z-of v1))))
+     (d^2 (y-of v1))
+     (d^2 (z-of v1))))
 
 
 (defmethod normalize ((v1 3dvector))
@@ -125,17 +125,17 @@
 
 (defmethod vector-prod ((v1 3dvector) (v2 3dvector))
   (3dv (- (* (y-of v1)
-               (z-of v2))
-           (* (y-of v2)
-               (z-of v1)))
+             (z-of v2))
+          (* (y-of v2)
+             (z-of v1)))
        (- (* (z-of v1)
-               (x-of v2))
-           (* (z-of v2)
-               (x-of v1)))
+             (x-of v2))
+          (* (z-of v2)
+             (x-of v1)))
        (- (* (x-of v1)
-               (y-of v2))
-           (* (x-of v2)
-               (y-of v1)))))
+             (y-of v2))
+          (* (x-of v2)
+             (y-of v1)))))
 
 (defmethod distance ((p1 3dvector) (p2 3dvector))
   (norm (sub p1 p2)))

@@ -22,9 +22,9 @@
         (for projections = (mapcar (lambda (v) (dot-vector v axis))
                                    (vertices-of obb-other)))
         (collect
-         (make-range
-          (reduce #'max projections)
-          (reduce #'min projections)))))
+            (make-range
+             (reduce #'max projections)
+             (reduce #'min projections)))))
 
 (define-permutation-methods intersects-p ((obb1 2dpolygon) (obb2 2dpolygon))
   (and (every #'intersects-p

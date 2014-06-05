@@ -120,9 +120,9 @@
 (defmethod volume ((r 2drectangle))
   (with-slots (v0 v1) r
     (* (- (x-of v1)
-            (x-of v0))
-        (- (y-of v1)
-            (y-of v0)))))
+          (x-of v0))
+       (- (y-of v1)
+          (y-of v0)))))
 
 (defmethod distance ((r 2drectangle) (v 2dvector))
   (distance (center-of r) v))

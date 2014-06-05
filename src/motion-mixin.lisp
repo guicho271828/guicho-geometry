@@ -105,7 +105,7 @@ time."
           (let* ((dvnorm (norm dv))
                  (t-center  (+ time (/ (dot dp dv1) dvnorm)))
                  (t-width/2 (/ (dsqrt (- (* r r) (* perp perp)))
-                                dvnorm)))
+                               dvnorm)))
             (values
              (region-product
               t-range
@@ -124,12 +124,12 @@ time."
 
 (defun %when-intersect-last (m1 m2 dl candidate)
   (iter
-   (while dl)
-   (for time = (dlist:dlist-pop dl))
-   (when (intersect-at-time m1 m2 time)
-     (return time))
-   (finally
-    (return candidate))))
+    (while dl)
+    (for time = (dlist:dlist-pop dl))
+    (when (intersect-at-time m1 m2 time)
+      (return time))
+    (finally
+     (return candidate))))
 
 (defparameter +minumum-dt+ 1.0d-3)
 
@@ -137,22 +137,22 @@ time."
   (if (< dt +minumum-dt+)
       (%when-intersect-last m1 m2 dl candidate)
       (iter
-       (with next-dl = nil)
-       (with next-dt = (* 0.5d0 dt))
-       (while dl)
-       (for time = (dlist:dlist-pop dl))
+        (with next-dl = nil)
+        (with next-dt = (* 0.5d0 dt))
+        (while dl)
+        (for time = (dlist:dlist-pop dl))
                                         ;(print time)
-       (when (intersect-at-time m1 m2 time)
-         ;; (print :go-back)
+        (when (intersect-at-time m1 m2 time)
+          ;; (print :go-back)
+          (return
+            (%when-intersect
+             m1 m2 (dlist:dlist (- time next-dt)) next-dt time)))
+        (dlist:dlist-push (- time next-dt) next-dl :at-end t)
+        (dlist:dlist-push (+ time next-dt) next-dl :at-end t)
+        (finally
+         ;; (print :go-further)
          (return
-           (%when-intersect
-            m1 m2 (dlist:dlist (- time next-dt)) next-dt time)))
-       (dlist:dlist-push (- time next-dt) next-dl :at-end t)
-       (dlist:dlist-push (+ time next-dt) next-dl :at-end t)
-       (finally
-        ;; (print :go-further)
-        (return
-          (%when-intersect m1 m2 next-dl next-dt candidate))))))
+           (%when-intersect m1 m2 next-dl next-dt candidate))))))
 
 @export
 @doc "Returns the remaining *time span* that those two

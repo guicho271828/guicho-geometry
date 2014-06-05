@@ -7,7 +7,7 @@
 @export
 @export-slots
 (defclass infinity-shape ()
-  ((diameter :initarg MOST-POSITIVE-DOUBLE-FLOAT)))
+  ((diameter :initarg MOST-POSITIVE-NUMBER)))
 
 (defmethod diameter ((inf infinity-shape))
   (with-slots (diameter) inf

@@ -32,7 +32,7 @@
      `((,c ,(- s) 0.0d0)
        (,s ,c     0.0d0)))))
 
-(defmethod rotate ((v 2dvector) (rad double-float))
+(defmethod rotate ((v 2dvector) (rad number))
   (apply-matrix (rotation-matrix rad) v))
 
 (defmethod rotate ((v 2dvector) (m array))

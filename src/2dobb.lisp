@@ -52,7 +52,7 @@
   (with-slots (matrix angle) obb
     (setf matrix (rotation-matrix angle))))
 
-(defmethod (setf angle) :after ((angle double-float) (obb 2dobb))
+(defmethod (setf angle) :after ((angle number) (obb 2dobb))
   (with-slots (matrix) obb
     (setf matrix (rotation-matrix angle))))
 
@@ -75,7 +75,7 @@
             x/2 (/ (x-of dim) 2.0d0)
             y/2 (/ (y-of dim) 2.0d0)))))
 
-(defmethod rotate ((obb 2dobb) (rad double-float))
+(defmethod rotate ((obb 2dobb) (rad number))
   (with-slots (angle) obb
     (deep-copy obb :angle (+ angle rad))))
 

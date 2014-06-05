@@ -151,7 +151,7 @@ for 2dvector, it just returns the area of parallelogram
   (scale-vector v1 (/ 1.0d0 (norm v1))))
 
 
-(defmethod resize ((v1 2dvector) (length double-float))
+(defmethod resize ((v1 2dvector) (length number))
   (scale-vector v1 (/ length (norm v1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -174,7 +174,7 @@ for 2dvector, it just returns the area of parallelogram
           y (* c y))
     v1))
 
-(defmethod scale ((v1 2dvector) (c double-float))
+(defmethod scale ((v1 2dvector) (c number))
   (scale-vector v1 c))
 
 (defmethod translate ((v1 2dvector) (v2 2dvector))

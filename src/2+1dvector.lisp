@@ -149,7 +149,7 @@
           time (* c time))
     v1))
 
-(defmethod scale :around ((v1 2+1dvector) (c double-float))
+(defmethod scale :around ((v1 2+1dvector) (c number))
   (scale-2+1dvector v1 c))
 
 (defmethod normalize ((v1 2+1dvector))

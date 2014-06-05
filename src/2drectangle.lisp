@@ -107,7 +107,7 @@
     (2dv-rect (add v0 v)
               (add v1 v))))
 
-(defmethod scale ((r 2drectangle) (n double-float))
+(defmethod scale ((r 2drectangle) (n number))
   (with-slots (v0 v1) r
     (2dv-rect (scale-vector v0 n)
               (scale-vector v1 n))))

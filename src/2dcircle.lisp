@@ -66,5 +66,5 @@
 
 (defmethod translate ((circle 2dcircle) (v 2dvector))
   (deep-copy circle :center (add (center-of circle) v)))
-(defmethod scale ((circle 2dcircle) (n double-float))
+(defmethod scale ((circle 2dcircle) (n number))
   (deep-copy circle :radius (* (radius circle) n)))

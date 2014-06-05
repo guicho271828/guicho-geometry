@@ -1,6 +1,6 @@
 #|
-  This file is a part of guicho-geometry project.
-  Copyright (c) 2013 Masataro Asai (guicho2.71828@gmail.com)
+This file is a part of guicho-geometry project.
+Copyright (c) 2013 Masataro Asai (guicho2.71828@gmail.com)
 |#
 
 (in-package :cl-user)
@@ -9,11 +9,12 @@
 (in-package :guicho-geometry-test-asd)
 
 (defsystem guicho-geometry-test
-  :author "Masataro Asai"
-  :license "LLGPL"
-  :depends-on (:guicho-geometry
-               :cl-test-more)
-  :components ((:module "t"
-                :components
-                ((:file "guicho-geometry"))))
-  :perform (load-op :after (op c) (asdf:clear-system c)))
+    :author "Masataro Asai"
+    :license "LLGPL"
+    :depends-on (:guicho-geometry
+                 :optima
+                 :fiveam)
+    :components ((:module "t"
+                          :components
+                          ((:file "guicho-geometry"))))
+    :perform (load-op :after (op c) (asdf:clear-system c)))

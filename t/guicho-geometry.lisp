@@ -7,11 +7,12 @@
 (defpackage guicho-geometry-test
   (:use :cl
         :guicho-geometry
-        :cl-test-more))
+        :fiveam))
 (in-package :guicho-geometry-test)
 
-(plan nil)
+(def-suite :guicho-geometry)
+(in-suite :guicho-geometry)
 
 ;; blah blah blah.
 
-(finalize)
+

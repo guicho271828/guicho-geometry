@@ -104,7 +104,7 @@ time."
           nil
           (let* ((dvnorm (norm dv))
                  (t-center  (+ time (/ (dot dp dv1) dvnorm)))
-                 (t-width/2 (/ (dsqrt (- (* r r) (* perp perp)))
+                 (t-width/2 (/ (sqrt (- (* r r) (* perp perp)))
                                dvnorm)))
             (values
              (region-product

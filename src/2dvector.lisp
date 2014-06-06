@@ -4,6 +4,7 @@
 
 @export
 @export-slots
+@export-accessors
 (defclass 2dvector (deep-copyable)
   ((x :type number :initarg :x :accessor x-of)
    (y :type number :initarg :y :accessor y-of)))

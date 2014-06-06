@@ -19,7 +19,7 @@
 (defun norm (v)
   @type 2dvector v
   @inline norm2
-  (dsqrt (norm2 v)))
+  (sqrt (norm2 v)))
 
 @export
 @doc "returns the square of the length of a vector"

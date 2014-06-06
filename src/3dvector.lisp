@@ -100,7 +100,7 @@
         (z-of v1) (* c (z-of v1))))
 
 (defmethod norm ((v1 3dvector))
-  (dsqrt (+ (d^2 (x-of v1))
+  (sqrt (+ (d^2 (x-of v1))
             (d^2 (y-of v1))
             (d^2 (z-of v1)))))
 

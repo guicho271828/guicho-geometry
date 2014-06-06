@@ -38,7 +38,7 @@
 
 (defmethod radius ((o 2dobb))
   (with-slots (x/2 y/2) o
-    (dsqrt (+ (d^2 x/2) (d^2 y/2)))))
+    (sqrt (+ (d^2 x/2) (d^2 y/2)))))
 
 (defmethod initialize-instance :after ((obb 2dobb)
                                        &key

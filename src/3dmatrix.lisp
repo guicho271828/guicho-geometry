@@ -65,7 +65,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; methods
 
-(defmethod add ((m1 3dmatrix) (m2 3dmatrix))
+(defmethod binary-add ((m1 3dmatrix) (m2 3dmatrix))
   (let ((m (make-3dm-array))
         (m1 (m-of m1))
         (m2 (m-of m2)))
@@ -75,7 +75,7 @@
                    (row-major-aref m2 i)))
        finally (return (make-instance '3dmatrix :array m)))))
 
-(defmethod sub ((m1 3dmatrix) (m2 3dmatrix))
+(defmethod binary-sub ((m1 3dmatrix) (m2 3dmatrix))
   (let ((m (make-3dm-array))
         (m1 (m-of m1))
         (m2 (m-of m2)))
@@ -122,7 +122,7 @@
                 (- (row-major-aref m1 i)))
        finally (return (make-instance '3dmatrix :array m)))))
 
-(defmethod nadd ((m1 3dmatrix) (m2 3dmatrix))
+(defmethod binary-nadd ((m1 3dmatrix) (m2 3dmatrix))
   (let ((a1 (a-of m1))
         (a2 (a-of m2)))
     (loop for i from 0 below 12
@@ -131,7 +131,7 @@
                    (row-major-aref a2 i)))
        finally (return m1))))
 
-(defmethod nsub ((m1 3dmatrix) (m2 3dmatrix))
+(defmethod binary-nsub ((m1 3dmatrix) (m2 3dmatrix))
   (let ((a1 (a-of m1))
         (a2 (a-of m2)))
     (loop for i from 0 below 12

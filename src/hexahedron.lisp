@@ -51,7 +51,7 @@
 ;; @inherited congruent-p
 
 
-(defmethod add ((r1 hexahedron) (r2 hexahedron))
+(defmethod binary-add ((r1 hexahedron) (r2 hexahedron))
   (with-slots ((v01 v0) (v11 v1)) r1
     (with-slots ((v02 v0) (v12 v1)) r2
       (hexa (min (x-of v01) (x-of v02))

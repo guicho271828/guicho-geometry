@@ -48,23 +48,23 @@
 @export
 (defvar +3ez+ (3dv 0.0d0 0.0d0 1.0d0))
 
-(defmethod sub ((v1 3dvector) (v2 3dvector))
+(defmethod binary-sub ((v1 3dvector) (v2 3dvector))
   (3dv (- (x-of v1) (x-of v2))
        (- (y-of v1) (y-of v2))
        (- (z-of v1) (z-of v2))))
 
-(defmethod add ((v1 3dvector) (v2 3dvector))
+(defmethod binary-add ((v1 3dvector) (v2 3dvector))
   (3dv (+ (x-of v1) (x-of v2))
        (+ (y-of v1) (y-of v2))
        (+ (z-of v1) (z-of v2))))
 
-(defmethod nadd ((v1 3dvector) (v2 3dvector))
+(defmethod binary-nadd ((v1 3dvector) (v2 3dvector))
   (setf (x-of v1) (+ (x-of v1) (x-of v2))
         (y-of v1) (+ (y-of v1) (y-of v2))
         (z-of v1) (+ (z-of v1) (z-of v2)))
   v1)
 
-(defmethod nsub ((v1 3dvector) (v2 3dvector))
+(defmethod binary-nsub ((v1 3dvector) (v2 3dvector))
   (setf (x-of v1) (- (x-of v1) (x-of v2))
         (y-of v1) (- (y-of v1) (y-of v2))
         (z-of v1) (- (z-of v1) (z-of v2)))

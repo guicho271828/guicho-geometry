@@ -78,7 +78,7 @@ for 2dvector, it just returns the area of parallelogram
                  :x (+ (x-of v1) (x-of v2))
                  :y (+ (y-of v1) (y-of v2))))
 
-(defmethod add ((v1 2dvector) (v2 2dvector))
+(defmethod binary-add ((v1 2dvector) (v2 2dvector))
   (add-vector v1 v2))
 
 @export
@@ -89,7 +89,7 @@ for 2dvector, it just returns the area of parallelogram
                  :x (- (x-of v1) (x-of v2))
                  :y (- (y-of v1) (y-of v2))))
 
-(defmethod sub ((v1 2dvector) (v2 2dvector))
+(defmethod binary-sub ((v1 2dvector) (v2 2dvector))
   (sub-vector v1 v2))
 
 @export
@@ -107,6 +107,11 @@ for 2dvector, it just returns the area of parallelogram
     (setf x (- x (x-of v2))
           y (- y (y-of v2)))
     v-modified))
+
+(defmethod binary-nadd ((v1 2dvector) (v2 2dvector))
+  (nadd-vector v1 v2))
+(defmethod binary-nsub ((v1 2dvector) (v2 2dvector))
+  (nsub-vector v1 v2))
 
 @export
 (defun dot-vector (v1 v2)

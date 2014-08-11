@@ -68,7 +68,7 @@
                  :y (+ (y-of v1) (y-of v2))
                  :t (+ (t-of v1) (t-of v2))))
 
-(defmethod add ((v1 2+1dvector) (v2 2+1dvector))
+(defmethod binary-add ((v1 2+1dvector) (v2 2+1dvector))
   (add-2+1dvector v1 v2))
 
 @export
@@ -80,7 +80,7 @@
                  :y (- (y-of v1) (y-of v2))
                  :t (- (t-of v1) (t-of v2))))
 
-(defmethod sub ((v1 2+1dvector) (v2 2+1dvector))
+(defmethod binary-sub ((v1 2+1dvector) (v2 2+1dvector))
   (sub-2+1dvector v1 v2))
 
 @export
